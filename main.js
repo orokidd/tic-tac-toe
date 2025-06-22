@@ -79,6 +79,7 @@ const gameLogic = (() => {
         displayController.updateMessage(
           `Game over! The winner is ${currentPlayer.name}`
         );
+        return;
       }
     }
 
