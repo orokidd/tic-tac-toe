@@ -34,3 +34,7 @@ button {
   font-size: 1em;
   cursor: pointer;
 }
+
+#start-modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}

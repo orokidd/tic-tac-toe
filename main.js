@@ -117,5 +117,12 @@ const displayController = (() => {
 
   resetButton.addEventListener("click", gameLogic.resetGame);
 
+  window.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("start-modal");
+    if (modal) {
+      modal.showModal();
+    }
+  });
+
   return { updateBoard, updateMessage };
 })();

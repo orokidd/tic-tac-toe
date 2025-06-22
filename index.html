@@ -1,28 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
 
-    <h1>Tic-Tac-Toe</h1>
-    <div class="board" id="board">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-    </div>
-    <p id="status">Player 1 turn</p>
-    <button id="reset">Restart</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-    <script src="main.js"></script>
-  </body>
+<body>
+
+  <h1>Tic-Tac-Toe</h1>
+  <div class="board" id="board">
+    <div class="cell" data-index="0"></div>
+    <div class="cell" data-index="1"></div>
+    <div class="cell" data-index="2"></div>
+    <div class="cell" data-index="3"></div>
+    <div class="cell" data-index="4"></div>
+    <div class="cell" data-index="5"></div>
+    <div class="cell" data-index="6"></div>
+    <div class="cell" data-index="7"></div>
+    <div class="cell" data-index="8"></div>
+  </div>
+  <p id="status">Player 1 turn</p>
+  <button id="reset">Restart</button>
+
+  <dialog id="start-modal">
+    <form action="" method="POST">
+      <h1>TIC TAC TOE</h1>
+      <section class="players">
+        <p>
+          <label for="player-one">PLAYER ONE</label>
+          <input type="text" id="player-one" name="player-one" autocomplete="off" maxlength="16" required>
+        </p>
+        <p>
+          <label for="player-two">PLAYER TWO</label>
+          <input type="text" id="player-two" name="player-two" autocomplete="off" maxlength="16" required>
+        </p>
+      </section>
+      <button type="submit">Start Game</button>
+    </form>
+  </dialog>
+
+  <script src="main.js"></script>
+</body>
+
 </html>
