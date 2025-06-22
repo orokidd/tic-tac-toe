@@ -36,5 +36,5 @@ button {
 }
 
 #start-modal::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(52, 52, 52);
 }

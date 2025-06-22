@@ -95,9 +95,9 @@ const gameLogic = (() => {
   const resetGame = () => {
     gameBoard.resetBoard();
     displayController.updateBoard(board);
-    displayController.updateMessage("Game Restarted");
-    gameActive = true;
     currentPlayer = gamePlayer.getPlayer1();
+    gameActive = true;
+    displayController.updateMessage(`Game Restarted, It's ${currentPlayer.name}'s turn`);
   };
 
   return { checkWinner, playerInput, switchPlayer, resetGame };
@@ -108,7 +108,7 @@ const displayController = (() => {
   const message = document.querySelector("#status");
   const resetButton = document.querySelector("#reset");
   const modal = document.getElementById("start-modal");
-  const startBtn = document.getElementById("start-btn");
+  const startBtn = document.getElementById("player-form");
 
   const updateBoard = (board) => {
     cells.forEach((cell, index) => {
@@ -134,7 +134,8 @@ const displayController = (() => {
     }
   });
 
-  startBtn.addEventListener("click", () => {
+  startBtn.addEventListener("submit", (e) => {
+    e.preventDefault();
     const playerOne = document.getElementById("player-one");
     const playerTwo = document.getElementById("player-two");
     const currentPlayer = gamePlayer.getPlayer1();
