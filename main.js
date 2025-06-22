@@ -22,10 +22,19 @@ const gamePlayer = (() => {
     marker: "O",
   };
 
+  const setPlayer = (number, name) => {
+    if (number === 1) {
+      player1.name = name;
+    }
+    if (number === 2) {
+      player2.name = name;
+    }
+  };
+
   const getPlayer1 = () => player1;
   const getPlayer2 = () => player2;
 
-  return { getPlayer1, getPlayer2 };
+  return { getPlayer1, getPlayer2, setPlayer };
 })();
 
 const gameLogic = (() => {
@@ -98,6 +107,8 @@ const displayController = (() => {
   const cells = document.querySelectorAll(".cell");
   const message = document.querySelector("#status");
   const resetButton = document.querySelector("#reset");
+  const modal = document.getElementById("start-modal");
+  const startBtn = document.getElementById("start-btn");
 
   const updateBoard = (board) => {
     cells.forEach((cell, index) => {
@@ -118,10 +129,20 @@ const displayController = (() => {
   resetButton.addEventListener("click", gameLogic.resetGame);
 
   window.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("start-modal");
     if (modal) {
       modal.showModal();
     }
+  });
+
+  startBtn.addEventListener("click", () => {
+    const playerOne = document.getElementById("player-one");
+    const playerTwo = document.getElementById("player-two");
+    const currentPlayer = gamePlayer.getPlayer1();
+
+    gamePlayer.setPlayer(1, playerOne.value);
+    gamePlayer.setPlayer(2, playerTwo.value);
+    updateMessage(`It's ${currentPlayer.name}'s turn`);
+    modal.close();
   });
 
   return { updateBoard, updateMessage };
