@@ -38,3 +38,9 @@ button {
 #start-modal::backdrop {
   background-color: rgb(52, 52, 52);
 }
+
+.player-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}

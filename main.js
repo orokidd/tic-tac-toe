@@ -64,9 +64,7 @@ const gameLogic = (() => {
     for (let condition of winningConditions) {
       const [first, second, third] = condition;
       if (
-        board[first] &&
-        board[first] === board[second] &&
-        board[first] === board[third]
+        board[first] && board[first] === board[second] && board[first] === board[third]
       ) {
         gameActive = false;
         displayController.updateMessage(
