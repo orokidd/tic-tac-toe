@@ -5,7 +5,9 @@ const gameBoard = (() => {
     return board;
   };
   const setBoard = (position, marker) => {
+    if (board[position]) return; // return if board already filled
     board[position] = marker;
+    return true;
   };
   const resetBoard = () => board.fill("");
 
@@ -30,14 +32,15 @@ const gamePlayer = (() => {
       player2.name = name;
     }
   };
+
   const getPlayer = (number) => {
     if (number === 1) {
-      return player1
+      return player1;
     }
     if (number === 2) {
-      return player2
+      return player2;
     }
-  }
+  };
 
   return { getPlayer, setPlayer };
 })();
@@ -80,16 +83,18 @@ const gameLogic = (() => {
 
   const playerInput = (position) => {
     if (!gameActive) return;
-
-    gameBoard.setBoard(position, currentPlayer.marker);
-    displayController.updateBoard(board);
-    checkWinner();
-    switchPlayer();
+    const input = gameBoard.setBoard(position, currentPlayer.marker)
+    if (input) {
+      displayController.updateBoard(board);
+      checkWinner();
+      switchPlayer();
+    }
   };
 
   const switchPlayer = () => {
     if (gameActive) {
-      currentPlayer = currentPlayer === gamePlayer.getPlayer(1) ? gamePlayer.getPlayer(2) : gamePlayer.getPlayer(1);
+      currentPlayer =
+        currentPlayer === gamePlayer.getPlayer(1) ? gamePlayer.getPlayer(2) : gamePlayer.getPlayer(1);
       displayController.updateMessage(`It's ${currentPlayer.name}'s turn`);
     }
   };
