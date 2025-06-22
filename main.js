@@ -125,6 +125,14 @@ const displayController = (() => {
     message.textContent = content;
   };
 
+  const setPlayerInfo = () => {
+    const playerOneName = document.querySelector(".player-one-info .username")
+    const playerTwoName = document.querySelector(".player-two-info .username")
+
+    playerOneName.textContent = `${gamePlayer.getPlayer(1).name}`
+    playerTwoName.textContent = `${gamePlayer.getPlayer(2).name}`
+  }
+
   cells.forEach((cell, index) => {
     cell.addEventListener("click", () => {
       gameLogic.playerInput(index);
@@ -148,6 +156,7 @@ const displayController = (() => {
     gamePlayer.setPlayer(1, playerOne.value);
     gamePlayer.setPlayer(2, playerTwo.value);
     updateMessage(`It's ${currentPlayer.name}'s turn`);
+    setPlayerInfo()
     modal.close();
   });
 
