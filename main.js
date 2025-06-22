@@ -30,15 +30,20 @@ const gamePlayer = (() => {
       player2.name = name;
     }
   };
+  const getPlayer = (number) => {
+    if (number === 1) {
+      return player1
+    }
+    if (number === 2) {
+      return player2
+    }
+  }
 
-  const getPlayer1 = () => player1;
-  const getPlayer2 = () => player2;
-
-  return { getPlayer1, getPlayer2, setPlayer };
+  return { getPlayer, setPlayer };
 })();
 
 const gameLogic = (() => {
-  let currentPlayer = gamePlayer.getPlayer1();
+  let currentPlayer = gamePlayer.getPlayer(1);
   let gameActive = true;
   const board = gameBoard.getBoard();
   const winningConditions = [
@@ -84,10 +89,7 @@ const gameLogic = (() => {
 
   const switchPlayer = () => {
     if (gameActive) {
-      currentPlayer =
-        currentPlayer === gamePlayer.getPlayer1()
-          ? gamePlayer.getPlayer2()
-          : gamePlayer.getPlayer1();
+      currentPlayer = currentPlayer === gamePlayer.getPlayer(1) ? gamePlayer.getPlayer(2) : gamePlayer.getPlayer(1);
       displayController.updateMessage(`It's ${currentPlayer.name}'s turn`);
     }
   };
@@ -95,7 +97,7 @@ const gameLogic = (() => {
   const resetGame = () => {
     gameBoard.resetBoard();
     displayController.updateBoard(board);
-    currentPlayer = gamePlayer.getPlayer1();
+    currentPlayer = gamePlayer.getPlayer(1);
     gameActive = true;
     displayController.updateMessage(`Game Restarted, It's ${currentPlayer.name}'s turn`);
   };
@@ -138,7 +140,7 @@ const displayController = (() => {
     e.preventDefault();
     const playerOne = document.getElementById("player-one");
     const playerTwo = document.getElementById("player-two");
-    const currentPlayer = gamePlayer.getPlayer1();
+    const currentPlayer = gamePlayer.getPlayer(1);
 
     gamePlayer.setPlayer(1, playerOne.value);
     gamePlayer.setPlayer(2, playerTwo.value);
