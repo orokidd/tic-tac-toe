@@ -3,6 +3,10 @@ body {
   text-align: center;
 }
 
+.game-container {
+  display: none;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(3, 100px);
@@ -35,9 +39,12 @@ button {
   cursor: pointer;
 }
 
-/* #start-modal::backdrop {
-  background-color: rgb(52, 52, 52);
-} */
+#start-modal {
+  display: none;
+}
+
+#select-mode-modal {
+}
 
 .player-info {
   display: flex;

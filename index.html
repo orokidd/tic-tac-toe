@@ -9,58 +9,54 @@
 </head>
 
 <body>
-
-  <h1>Tic-Tac-Toe</h1>
-
-  <div class="player-info">
-    <div class="player-one-info">
-      <p class="username">p1</p>
-      <p class="marker">x</p>
-    </div>
-    <div class="player-two-info">
-      <p class="username">p2</p>
-      <p class="marker">o</p>
-    </div>
-  </div>
-
-  <div class="board" id="board">
-    <div class="cell" data-index="0"></div>
-    <div class="cell" data-index="1"></div>
-    <div class="cell" data-index="2"></div>
-    <div class="cell" data-index="3"></div>
-    <div class="cell" data-index="4"></div>
-    <div class="cell" data-index="5"></div>
-    <div class="cell" data-index="6"></div>
-    <div class="cell" data-index="7"></div>
-    <div class="cell" data-index="8"></div>
-  </div>
-  <p id="status">Player 1 turn</p>
-  <button id="reset">Restart</button>
-
-  <dialog id="start-modal">
-    <form action="" method="POST" id="player-form">
-      <h1>TIC TAC TOE</h1>
-      <section class="players">
-        <p>
-          <label for="player-one">PLAYER ONE</label>
-          <input type="text" id="player-one" name="player-one" autocomplete="off" maxlength="16" required>
-        </p>
-        <p>
-          <label for="player-two">PLAYER TWO</label>
-          <input type="text" id="player-two" name="player-two" autocomplete="off" maxlength="16" required>
-        </p>
-      </section>
-      <button type="submit" id="start-btn">Start Game</button>
-    </form>
-  </dialog>
-
-  <dialog id="select-mode-modal" open>
+  
+  <div id="select-mode-modal">
+    <h1>Tic-Tac-Toe</h1>
     <form action="" method="POST" id="mode-selection-form">
       <h1>Select Mode</h1>
       <button type="submit" id="mode-computer">Computer</button>
       <button type="submit" id="mode-human">Human</button>
     </form>
-  </dialog>
+  </div>
+
+  <div id="start-modal">
+    <form action="" method="POST" id="player-form">
+      <h1>TIC TAC TOE</h1>
+      <label for="player-one">PLAYER ONE</label>
+      <input type="text" id="player-one" name="player-one" autocomplete="off" maxlength="16" required>
+      <label for="player-two">PLAYER TWO</label>
+      <input type="text" id="player-two" name="player-two" autocomplete="off" maxlength="16" required>
+      <button type="submit" id="start-btn">Start Game</button>
+    </form>
+  </div>
+
+
+  <div class="game-container">
+    <div class="player-info">
+      <div class="player-one-info">
+        <p class="username">p1</p>
+        <p class="marker">x</p>
+      </div>
+      <div class="player-two-info">
+        <p class="username">p2</p>
+        <p class="marker">o</p>
+      </div>
+    </div>
+
+    <div class="board" id="board">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
+    </div>
+    <p id="status">Player 1 turn</p>
+    <button id="reset">Restart</button>
+  </div>
 
   <script src="main.js"></script>
 </body>

@@ -158,6 +158,8 @@ const displayController = (() => {
   const modeComputerBtn = document.getElementById("mode-computer");
   const modeHumanBtn = document.getElementById("mode-human");
 
+  const gameSection = document.querySelector(".game-container")
+
   document
     .getElementById("mode-selection-form")
     .addEventListener("submit", (e) => {
@@ -165,13 +167,13 @@ const displayController = (() => {
     });
 
   modeComputerBtn.addEventListener("click", () => {
-    selectModeModal.close();
-    startModal.showModal();
+    selectModeModal.style.display = "none"
+    startModal.style.display = "block"
   });
 
   modeHumanBtn.addEventListener("click", () => {
-    selectModeModal.close();
-    startModal.showModal();
+    selectModeModal.style.display = "none"
+    startModal.style.display = "block"
     gameLogic.setAgainstComputer(false);
   });
 
@@ -211,7 +213,8 @@ const displayController = (() => {
     gamePlayer.setPlayer(2, playerTwo.value);
     updateMessage(`It's ${currentPlayer.name}'s turn`);
     setPlayerInfo();
-    startModal.close();
+    startModal.style.display = "none"
+    gameSection.style.display = "block"
   });
 
   return { updateBoard, updateMessage };
