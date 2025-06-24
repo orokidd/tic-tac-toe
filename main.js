@@ -16,11 +16,11 @@ const gameBoard = (() => {
 
 const gamePlayer = (() => {
   let player1 = {
-    name: "Player 1",
+    name: "",
     marker: "X",
   };
   let player2 = {
-    name: "Player 2",
+    name: "",
     marker: "O",
   };
 
@@ -45,11 +45,23 @@ const gamePlayer = (() => {
   return { getPlayer, setPlayer };
 })();
 
+const gameMode = (() => {
+  let againstComputer = true;
+
+  const isAgainstComputer = () => againstComputer;
+
+  const setAgainstComputer = (value) => {
+    againstComputer = value;
+  };
+
+  return { isAgainstComputer, setAgainstComputer }
+})();
+
 const gameLogic = (() => {
   let currentPlayer = gamePlayer.getPlayer(1);
   let gameActive = true;
-  let againstComputer = true;
   const board = gameBoard.getBoard();
+
   const winningConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -60,12 +72,6 @@ const gameLogic = (() => {
     [0, 4, 8],
     [2, 4, 6],
   ];
-
-  const isAgainstComputer = () => againstComputer;
-
-  const setAgainstComputer = (value) => {
-    againstComputer = value;
-  };
 
   const checkWinner = () => {
     for (let condition of winningConditions) {
@@ -107,7 +113,7 @@ const gameLogic = (() => {
           : gamePlayer.getPlayer(1);
       displayController.updateMessage(`It's ${currentPlayer.name}'s turn`);
 
-      if (againstComputer && currentPlayer === gamePlayer.getPlayer(2)) {
+      if (gameMode.isAgainstComputer() && currentPlayer === gamePlayer.getPlayer(2)) {
         const randomIndex = getComputerInput();
         playerInput(randomIndex);
       }
@@ -140,9 +146,7 @@ const gameLogic = (() => {
     checkWinner,
     playerInput,
     switchPlayer,
-    resetGame,
-    isAgainstComputer,
-    setAgainstComputer,
+    resetGame
   };
 })();
 
@@ -178,7 +182,7 @@ const displayController = (() => {
   modeHumanBtn.addEventListener("click", () => {
     selectModeModal.style.display = "none"
     startModal.style.display = "flex"
-    gameLogic.setAgainstComputer(false);
+    gameMode.setAgainstComputer(false);
   });
 
   const updateBoard = (board) => {
