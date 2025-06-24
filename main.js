@@ -170,14 +170,14 @@ const displayController = (() => {
 
   modeComputerBtn.addEventListener("click", () => {
     selectModeModal.style.display = "none"
-    startModal.style.display = "block"
+    startModal.style.display = "flex"
     inputPlayerTwoContainer.style.display = "none"
     inputPlayerTwoName.value = "Computer"
   });
 
   modeHumanBtn.addEventListener("click", () => {
     selectModeModal.style.display = "none"
-    startModal.style.display = "block"
+    startModal.style.display = "flex"
     gameLogic.setAgainstComputer(false);
   });
 
