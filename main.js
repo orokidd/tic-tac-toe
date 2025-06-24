@@ -154,6 +154,8 @@ const displayController = (() => {
 
   const selectModeModal = document.getElementById("select-mode-modal");
   const startModal = document.getElementById("start-modal");
+  const inputPlayerTwoContainer = document.getElementById("player-two-selection")
+  const inputPlayerTwoName = document.querySelector("input#player-two")
 
   const modeComputerBtn = document.getElementById("mode-computer");
   const modeHumanBtn = document.getElementById("mode-human");
@@ -169,6 +171,8 @@ const displayController = (() => {
   modeComputerBtn.addEventListener("click", () => {
     selectModeModal.style.display = "none"
     startModal.style.display = "block"
+    inputPlayerTwoContainer.style.display = "none"
+    inputPlayerTwoName.value = "Computer"
   });
 
   modeHumanBtn.addEventListener("click", () => {
