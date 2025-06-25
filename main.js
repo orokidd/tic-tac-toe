@@ -34,12 +34,7 @@ const gamePlayer = (() => {
   };
 
   const getPlayer = (number) => {
-    if (number === 1) {
-      return player1;
-    }
-    if (number === 2) {
-      return player2;
-    }
+    return number === 1 ? player1 : player2;
   };
 
   return { getPlayer, setPlayer };
@@ -58,10 +53,10 @@ const gameMode = (() => {
 })();
 
 const gameLogic = (() => {
+  const board = gameBoard.getBoard();
   let currentPlayer = gamePlayer.getPlayer(1);
   let gameActive = true;
-  const board = gameBoard.getBoard();
-
+  
   const winningConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -77,11 +72,12 @@ const gameLogic = (() => {
     for (let condition of winningConditions) {
       const [first, second, third] = condition;
       if (
+        // Prevent empty string "" to return true
         board[first] &&
         board[first] === board[second] &&
         board[first] === board[third]
       ) {
-        gameActive = false;
+        stopGame();
         displayController.updateMessage(
           `Game over! The winner is ${currentPlayer.name}`
         );
@@ -90,7 +86,7 @@ const gameLogic = (() => {
     }
 
     if (!board.includes("")) {
-      gameActive = false;
+      stopGame();
       displayController.updateMessage("Game over, It's a tie!");
     }
   };
@@ -107,10 +103,7 @@ const gameLogic = (() => {
 
   const switchPlayer = () => {
     if (gameActive) {
-      currentPlayer =
-        currentPlayer === gamePlayer.getPlayer(1)
-          ? gamePlayer.getPlayer(2)
-          : gamePlayer.getPlayer(1);
+      currentPlayer = currentPlayer === gamePlayer.getPlayer(1) ? gamePlayer.getPlayer(2) : gamePlayer.getPlayer(1);
       displayController.updateMessage(`It's ${currentPlayer.name}'s turn`);
 
       if (gameMode.isAgainstComputer() && currentPlayer === gamePlayer.getPlayer(2)) {
@@ -119,6 +112,10 @@ const gameLogic = (() => {
       }
     }
   };
+
+  const stopGame = () => {
+    gameActive = false;
+  }
 
   const resetGame = () => {
     gameBoard.resetBoard();
@@ -132,9 +129,7 @@ const gameLogic = (() => {
 
   const getComputerInput = () => {
     const board = gameBoard.getBoard();
-    const emptyIndexes = board
-      .map((value, index) => (value === "" ? index : null))
-      .filter((index) => index !== null);
+    const emptyIndexes = board.map((value, index) => (value === "" ? index : null)).filter((index) => index !== null);
 
     if (emptyIndexes.length === 0) return null; // board is full
 
@@ -142,12 +137,7 @@ const gameLogic = (() => {
     return emptyIndexes[randomIndex];
   };
 
-  return {
-    checkWinner,
-    playerInput,
-    switchPlayer,
-    resetGame
-  };
+  return { checkWinner, playerInput, switchPlayer, resetGame };
 })();
 
 const displayController = (() => {
