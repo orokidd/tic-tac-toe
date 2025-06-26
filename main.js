@@ -78,9 +78,7 @@ const gameLogic = (() => {
         board[first] === board[third]
       ) {
         stopGame();
-        displayController.updateMessage(
-          `Game over! The winner is ${currentPlayer.name}`
-        );
+        displayController.updateMessage(`Game over! The winner is ${currentPlayer.name}`);
         return;
       }
     }
@@ -107,12 +105,33 @@ const gameLogic = (() => {
       displayController.updateMessage(`It's ${currentPlayer.name}'s turn`);
 
       if (gameMode.isAgainstComputer() && currentPlayer === gamePlayer.getPlayer(2)) {
-        const randomIndex = getComputerInput();
-        playerInput(randomIndex);
+        computerInput();
       }
     }
   };
 
+  const computerInput = () => {
+    if (!gameActive) return;
+    const randomIndex = getComputerInput();
+    const input = gameBoard.setBoard(randomIndex, currentPlayer.marker);
+
+    if (input) {
+      displayController.updateBoard(board);
+      checkWinner();
+      switchPlayer();
+    }
+  }
+
+  const getComputerInput = () => {
+    const board = gameBoard.getBoard();
+    const emptyIndexes = board.map((value, index) => (value === "" ? index : null)).filter((index) => index !== null);
+
+    if (emptyIndexes.length === 0) return null; // board is full
+
+    const randomIndex = Math.floor(Math.random() * emptyIndexes.length);
+    return emptyIndexes[randomIndex];
+  };
+  
   const stopGame = () => {
     gameActive = false;
   }
@@ -125,16 +144,6 @@ const gameLogic = (() => {
     displayController.updateMessage(
       `Game Restarted, It's ${currentPlayer.name}'s turn`
     );
-  };
-
-  const getComputerInput = () => {
-    const board = gameBoard.getBoard();
-    const emptyIndexes = board.map((value, index) => (value === "" ? index : null)).filter((index) => index !== null);
-
-    if (emptyIndexes.length === 0) return null; // board is full
-
-    const randomIndex = Math.floor(Math.random() * emptyIndexes.length);
-    return emptyIndexes[randomIndex];
   };
 
   return { checkWinner, playerInput, switchPlayer, resetGame };
