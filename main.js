@@ -174,8 +174,6 @@ const displayController = (() => {
     });
   });
 
-  resetButton.addEventListener("click", gameLogic.resetGame);
-
   startBtn.addEventListener("click", (e) => {
     const playerOne = document.getElementById("player-one");
     const playerTwo = document.getElementById("player-two");
@@ -188,6 +186,28 @@ const displayController = (() => {
     hidePlayerNameSelection()
     showGameSection()
   });
+
+  resetButton.addEventListener("click", gameLogic.resetGame);
+
+  const updateBoard = (board) => {
+    cells.forEach((cell, index) => {
+      cell.textContent = board[index];
+    });
+  };
+
+  const updateMessage = (content) => {
+    const message = document.querySelector("#status");
+
+    message.textContent = content;
+  };
+
+  const setPlayerInfo = () => {
+    const playerOneName = document.querySelector(".player-one-info .username");
+    const playerTwoName = document.querySelector(".player-two-info .username");
+
+    playerOneName.textContent = `${gamePlayer.getPlayer(1).name}`;
+    playerTwoName.textContent = `${gamePlayer.getPlayer(2).name}`;
+  };
 
   const hideModeSelection = () => {
     const selectModeModal = document.getElementById("select-mode-modal");
@@ -220,26 +240,6 @@ const displayController = (() => {
 
     gameSection.style.display = "block"
   }
-
-  const updateBoard = (board) => {
-    cells.forEach((cell, index) => {
-      cell.textContent = board[index];
-    });
-  };
-
-  const updateMessage = (content) => {
-    const message = document.querySelector("#status");
-
-    message.textContent = content;
-  };
-
-  const setPlayerInfo = () => {
-    const playerOneName = document.querySelector(".player-one-info .username");
-    const playerTwoName = document.querySelector(".player-two-info .username");
-
-    playerOneName.textContent = `${gamePlayer.getPlayer(1).name}`;
-    playerTwoName.textContent = `${gamePlayer.getPlayer(2).name}`;
-  };
 
   return { updateBoard, updateMessage };
 })();
