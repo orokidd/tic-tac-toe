@@ -151,38 +151,75 @@ const gameLogic = (() => {
 
 const displayController = (() => {
   const cells = document.querySelectorAll(".cell");
-  const message = document.querySelector("#status");
   const resetButton = document.querySelector("#reset");
-  const startBtn = document.getElementById("player-form");
-
-  const selectModeModal = document.getElementById("select-mode-modal");
-  const startModal = document.getElementById("start-modal");
-  const inputPlayerTwoContainer = document.getElementById("player-two-selection")
-  const inputPlayerTwoName = document.querySelector("input#player-two")
-
+  const startBtn = document.getElementById("start-btn");
   const modeComputerBtn = document.getElementById("mode-computer");
   const modeHumanBtn = document.getElementById("mode-human");
 
-  const gameSection = document.querySelector(".game-container")
-
-  document
-    .getElementById("mode-selection-form")
-    .addEventListener("submit", (e) => {
-      e.preventDefault();
-    });
-
   modeComputerBtn.addEventListener("click", () => {
-    selectModeModal.style.display = "none"
-    startModal.style.display = "flex"
-    inputPlayerTwoContainer.style.display = "none"
-    inputPlayerTwoName.value = "Computer"
+    hideModeSelection()
+    showPlayerNameSelection()
+    hidePlayerTwoNameInput()
   });
 
   modeHumanBtn.addEventListener("click", () => {
-    selectModeModal.style.display = "none"
-    startModal.style.display = "flex"
+    hideModeSelection()
+    showPlayerNameSelection()
     gameMode.setAgainstComputer(false);
   });
+
+    cells.forEach((cell, index) => {
+    cell.addEventListener("click", () => {
+      gameLogic.playerInput(index);
+    });
+  });
+
+  resetButton.addEventListener("click", gameLogic.resetGame);
+
+  startBtn.addEventListener("click", (e) => {
+    const playerOne = document.getElementById("player-one");
+    const playerTwo = document.getElementById("player-two");
+    const currentPlayer = gamePlayer.getPlayer(1);
+
+    gamePlayer.setPlayer(1, playerOne.value.trim() || "Player 1");
+    gamePlayer.setPlayer(2, playerTwo.value.trim() || "Player 2");
+    updateMessage(`It's ${currentPlayer.name}'s turn`);
+    setPlayerInfo();
+    hidePlayerNameSelection()
+    showGameSection()
+  });
+
+  const hideModeSelection = () => {
+    const selectModeModal = document.getElementById("select-mode-modal");
+
+    selectModeModal.style.display = "none"
+  }
+
+  const showPlayerNameSelection = () => {
+    const startModal = document.getElementById("start-modal");
+
+    startModal.style.display = "flex"
+  }
+
+  const hidePlayerNameSelection = () => {
+    const startModal = document.getElementById("start-modal");
+
+    startModal.style.display = "none"
+  }
+
+  const hidePlayerTwoNameInput = () => {
+    const inputPlayerTwoContainer = document.getElementById("player-two-selection")
+    const inputPlayerTwoName = document.querySelector("input#player-two")
+
+    inputPlayerTwoContainer.style.display = "none"
+    inputPlayerTwoName.value = "Computer"
+  }
+
+  const showGameSection = () => {
+    const gameSection = document.querySelector(".game-container")
+
+    gameSection.style.display = "block"
+  }
 
   const updateBoard = (board) => {
     cells.forEach((cell, index) => {
@@ -191,6 +228,8 @@ const displayController = (() => {
   };
 
   const updateMessage = (content) => {
+    const message = document.querySelector("#status");
+
     message.textContent = content;
   };
 
@@ -201,28 +240,6 @@ const displayController = (() => {
     playerOneName.textContent = `${gamePlayer.getPlayer(1).name}`;
     playerTwoName.textContent = `${gamePlayer.getPlayer(2).name}`;
   };
-
-  cells.forEach((cell, index) => {
-    cell.addEventListener("click", () => {
-      gameLogic.playerInput(index);
-    });
-  });
-
-  resetButton.addEventListener("click", gameLogic.resetGame);
-
-  startBtn.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const playerOne = document.getElementById("player-one");
-    const playerTwo = document.getElementById("player-two");
-    const currentPlayer = gamePlayer.getPlayer(1);
-
-    gamePlayer.setPlayer(1, playerOne.value);
-    gamePlayer.setPlayer(2, playerTwo.value);
-    updateMessage(`It's ${currentPlayer.name}'s turn`);
-    setPlayerInfo();
-    startModal.style.display = "none"
-    gameSection.style.display = "block"
-  });
 
   return { updateBoard, updateMessage };
 })();

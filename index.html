@@ -12,26 +12,29 @@
 
   <div id="select-mode-modal">
     <h1>Tic Tac Toe</h1>
-    <form action="" method="POST" id="mode-selection-form">
+    <div id="mode-selection-form">
       <p>Select Your Opponent</p>
-      <button type="submit" id="mode-computer">Computer</button>
-      <button type="submit" id="mode-human">Human</button>
-    </form>
+      <button id="mode-computer">Computer</button>
+      <button id="mode-human">Human</button>
+    </div>
   </div>
 
   <div id="start-modal">
-    <form action="" method="POST" id="player-form">
+    <div id="player-form">
       <h1>Tic Tac Toe</h1>
+
       <div class="player-selection" id="player-one-selection">
         <label for="player-one">PLAYER ONE</label>
-        <input type="text" id="player-one" name="player-one" autocomplete="off" maxlength="16" value="Player 1" required>
+        <input type="text" id="player-one" name="player-one" autocomplete="off" maxlength="16">
       </div>
+      
       <div class="player-selection" id="player-two-selection">
         <label for="player-two">PLAYER TWO</label>
-        <input type="text" id="player-two" name="player-two" autocomplete="off" maxlength="16" value="Player 2" required>
+        <input type="text" id="player-two" name="player-two" autocomplete="off" maxlength="16">
       </div>
       <button type="submit" id="start-btn">Start Game</button>
-    </form>
+
+    </div>
   </div>
 
   <div class="game-container">
